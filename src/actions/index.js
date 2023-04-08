@@ -17,10 +17,16 @@ export const heroesFetchingError = () => {
     }
 }
 
-export const heroCreated = (id) => {
+export const filtersFetchingError = () => {
+    return {
+        type: 'FILTERS_FETCHING_ERROR'
+    }
+}
+
+export const heroCreated = (hero) => {
     return {
         type: 'HERO_CREATED',
-        payload: id
+        payload: hero
     }
 }
 

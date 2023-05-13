@@ -3,24 +3,16 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v1 as uuidv1 } from 'uuid';
 
-import { heroCreated } from '../../actions';
-
-// Задача для этого компонента:
-// Реализовать создание нового героя с введенными данными. Он должен попадать
-// в общее состояние и отображаться в списке + фильтроваться
-// Уникальный идентификатор персонажа можно сгенерировать через uiid
-// Усложненная задача:
-// Персонаж создается и в файле json при помощи метода POST
-// Дополнительно:
-// Элементы <option></option> желательно сформировать на базе
-// данных из фильтров
+//import { heroCreated } from '../../actions';
+import { heroCreated } from '../heroesList/heroesSlice';
 
 const HeroesAddForm = () => {
     const [heroName, setHeroName] = useState('');
     const [heroDescr, setHeroDescr] = useState('');
     const [heroElement, setHeroElement] = useState('');
 
-    const {filters, filtersLoadingStatus} = useSelector(state => state);
+    //const {filters, filtersLoadingStatus} = useSelector(state => state);
+    const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -48,6 +40,14 @@ const HeroesAddForm = () => {
             return <option>Загрузка элементов</option>
         } else if (status === "error") {
             return <option>Ошибка загрузки</option>
+        }
+
+        if (filters && filters.length > 0 ) {
+            return filters.map(({name, label}) => {
+                if (name === 'all')  return;
+
+                return <option key={name} value={name}>{label}</option>
+            })
         }
     }
 
@@ -89,10 +89,10 @@ const HeroesAddForm = () => {
                     value={heroElement}
                     onChange={(e) => setHeroElement(e.target.value)}>
                     <option >Я владею элементом...</option>
-                    <option value="fire">Огонь</option>
+                    {/*<option value="fire">Огонь</option>
                     <option value="water">Вода</option>
                     <option value="wind">Ветер</option>
-                    <option value="earth">Земля</option>
+                    <option value="earth">Земля</option>*/}
                     {renderFilters(filters, filtersLoadingStatus)}
                 </select>
             </div>

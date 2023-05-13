@@ -1,10 +1,10 @@
-import { useCallback } from "react";
+//import { useCallback } from "react";
 
 export const useHttp = () => {
     // const [process, setProcess] = useState('waiting');
 
-    const request = useCallback(async (url, method = 'GET', body = null, headers = {'Content-Type': 'application/json'}) => {
-
+    //const request = useCallback(async (url, method = 'GET', body = null, headers = {'Content-Type': 'application/json'}) => {
+    const request = async (url, method = 'GET', body = null, headers = {'Content-Type': 'application/json'}) => {
         // setProcess('loading');
 
         try {
@@ -21,7 +21,8 @@ export const useHttp = () => {
             // setProcess('error');
             throw e;
         }
-    }, []);
+    //}, []);
+    }
 
     // const clearError = useCallback(() => {
         // setProcess('loading');
